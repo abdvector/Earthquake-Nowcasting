@@ -34,3 +34,6 @@ def load_and_preprocess_raw(file_obj, is_excel=False):
     
     return df.reset_index(), hourly_counts
 
+def load_builtin_data():
+    raw_file = "Turkey_Aftershops_2023.csv.csv"
+    return load_and_preprocess_raw(raw_file, is_excel=False)

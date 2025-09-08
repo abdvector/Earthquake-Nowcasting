@@ -23,3 +23,28 @@ def isolate_decay_period(y_series):
     
     return bkp_index, y_decay, t_decay
 
+def fit_omori(t_decay, y_decay):
+    """
+    Fits the Omori law to the decay period.
+    Returns parameters (K, c, p) and the prediction array.
+    """
+    initial_guesses = [y_decay.iloc[0], 1.0, 1.0]
+    # Bound parameters to prevent negative values which cause issues
+    bounds = ([0, 0, 0], [np.inf, np.inf, np.inf])
+    
+    try:
+        params, _ = curve_fit(
+            omori_law, t_decay, y_decay.values, 
+            p0=initial_guesses, maxfev=10000, bounds=bounds
+        )
+    except Exception as e:
+        # Fallback to loose fit if it fails
+        params, _ = curve_fit(
+            omori_law, t_decay, y_decay.values, 
+            p0=initial_guesses, maxfev=10000
+        )
+        
+    K_fit, c_fit, p_fit = params
+    omori_prediction = omori_law(t_decay, K_fit, c_fit, p_fit)
+    
+    return (K_fit, c_fit, p_fit), omori_prediction

@@ -52,3 +52,6 @@ st.markdown("---")
 
 tab1, tab2 = st.tabs(["1 LIVE ANALYSIS (Turkey-Syria 2023 Dataset)", "2 UPLOAD & ANALYZE YOUR DATA"])
 
+
+def render_map(df_raw):
+    pass

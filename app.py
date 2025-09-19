@@ -181,7 +181,7 @@ with tab1:
     except Exception as e:
         st.error(f"Error loading built-in dataset: {e}")
 
-# Tab 2 pending
+with tab2:
     st.header("Upload & Analyze Custom Data")
     st.markdown("""
     **Instructions:**

@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import pydeck as pdk
 import warnings
+import time
 
 # Suppress warnings
 warnings.filterwarnings('ignore')

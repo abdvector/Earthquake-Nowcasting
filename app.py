@@ -3,8 +3,6 @@ import pandas as pd
 import numpy as np
 import pydeck as pdk
 import warnings
-import time
-import json
 
 # Suppress warnings
 warnings.filterwarnings('ignore')
@@ -172,7 +170,7 @@ def render_pipeline(df_raw, df_hourly):
         danger_level = "<span class='danger-medium'>MODERATE</span>"
         action = "Exercise caution. Volatility is at baseline."
         
-    st.markdown(f"### Current Risk Index: {danger_level}", unsafe_allow_html=True)
+    st.markdown(f"### Current Danger Index: {danger_level}", unsafe_allow_html=True)
     st.markdown(f"**Recommended Action:** {action}")
 
 with tab1:

@@ -24,7 +24,7 @@ def load_and_preprocess_raw(file_obj, is_excel=False):
     
     # Aggregate to hourly
     # We count the number of events per hour
-    hourly_counts = df.resample('H').size().rename('Hourly_Aftershock_Count').to_frame()
+    hourly_counts = df.resample('h').size().rename('Hourly_Aftershock_Count').to_frame()
     
     # We can also keep average lat/lon per hour if present for mapping, or just keep raw for mapping
     # But for the map, raw data is better. So we return both.

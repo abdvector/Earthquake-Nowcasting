@@ -92,7 +92,7 @@ def render_map(df_raw):
     else:
         st.info("No spatial data (latitude/longitude) found for mapping.")
 
-def render_pipeline(df_raw, df_hourly):
+def render_pipeline(df_raw, df_hourly, key_suffix=""):
     # 1. Map
     render_map(df_raw)
     
@@ -117,7 +117,7 @@ def render_pipeline(df_raw, df_hourly):
     cols[2].markdown(f"<div class='metric-card'><div class='metric-label'>Omori 'K' (Scale)</div><div class='metric-value'>{K_fit:.2f}</div></div>", unsafe_allow_html=True)
     cols[3].markdown(f"<div class='metric-card'><div class='metric-label'>Omori 'c' (Time Offset)</div><div class='metric-value'>{c_fit:.2f}</div></div>", unsafe_allow_html=True)
     
-    st.plotly_chart(plot_omori_fit(t_decay, y_decay, omori_prediction, p_fit), use_container_width=True)
+    st.plotly_chart(plot_omori_fit(t_decay, y_decay, omori_prediction, p_fit), use_container_width=True, key=f"omori_{key_suffix}")
     
     st.markdown("---")
     
@@ -133,11 +133,11 @@ def render_pipeline(df_raw, df_hourly):
     stat_msg = "Stationary (Perfect)" if stat_results['is_stationary'] else "Non-Stationary"
     st.info(f"ADF Test p-value: {p_val_str} ({stat_msg}). The Omori Law sufficiently captures the mean trend.")
     
-    st.plotly_chart(create_acf_pacf_plot(omori_residuals, "Omori Residuals (v_t)"), use_container_width=True)
+    st.plotly_chart(create_acf_pacf_plot(omori_residuals, "Omori Residuals (v_t)"), use_container_width=True, key=f"acf_omori_{key_suffix}")
     
     st.markdown("**2. Volatility Clustering (GARCH)**")
     arima_residuals = fit_arima.resid
-    st.plotly_chart(create_acf_pacf_plot(arima_residuals**2, "Squared ARIMA Residuals"), use_container_width=True)
+    st.plotly_chart(create_acf_pacf_plot(arima_residuals**2, "Squared ARIMA Residuals"), use_container_width=True, key=f"acf_arima_{key_suffix}")
     
     with st.spinner("Fitting GARCH(1,1)..."):
         garch_results = fit_garch(arima_residuals)
@@ -154,7 +154,7 @@ def render_pipeline(df_raw, df_hourly):
     st.subheader("⭕ Hybrid Nowcast (Next 6 Hours)")
     st.markdown("Combines the geophysical Omori baseline with the econometric ARIMA/GARCH error corrections.")
     
-    st.plotly_chart(plot_hybrid_nowcast(t_decay, y_decay, omori_law, params, fit_arima, forecast_steps=6), use_container_width=True)
+    st.plotly_chart(plot_hybrid_nowcast(t_decay, y_decay, omori_law, params, fit_arima, forecast_steps=6), use_container_width=True, key=f"nowcast_{key_suffix}")
     
     # Simple danger index logic based on GARCH variance forecast
     variance_forecast = garch_results.forecast(horizon=1).variance.iloc[-1, 0]
@@ -177,7 +177,7 @@ with tab1:
     st.header("Turkey-Syria Earthquake 2023 Analysis")
     try:
         df_raw, df_hourly = load_builtin_data()
-        render_pipeline(df_raw, df_hourly)
+        render_pipeline(df_raw, df_hourly, key_suffix="tab1")
     except Exception as e:
         st.error(f"Error loading built-in dataset: {e}")
 
@@ -200,7 +200,7 @@ with tab2:
             with st.spinner("Loading and aggregating data..."):
                 df_raw, df_hourly = load_and_preprocess_raw(uploaded_file, is_excel)
             st.success("Data loaded successfully!")
-            render_pipeline(df_raw, df_hourly)
+            render_pipeline(df_raw, df_hourly, key_suffix="tab2")
         except Exception as e:
             st.error(f"An error occurred while processing the file: {e}")
             st.info("Please ensure the file has a 'time' column with valid datetime strings.")

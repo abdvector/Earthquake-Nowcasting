@@ -1,4 +1,4 @@
-# 🛡️ Aftershock Nowcaster: Hybrid Geophysical-Econometric System
+# Earthquake Aftershock Nowcaster: Hybrid Geophysical-Econometric System
 
 ![GitHub release (latest by date)](https://img.shields.io/badge/Release-v1.0.0-blue)
 ![Streamlit](https://img.shields.io/badge/Streamlit-Ready-FF4B4B)
@@ -9,7 +9,7 @@ Following a catastrophic earthquake, the sequence of aftershocks often poses a g
 
 ---
 
-## 📑 Table of Contents
+##  Table of Contents
 1. [Dashboard Previews](#-dashboard-previews)
 2. [Project Overview](#-project-overview)
 3. [Methodological Flow](#-methodological-flow)
@@ -20,7 +20,7 @@ Following a catastrophic earthquake, the sequence of aftershocks often poses a g
 
 ---
 
-## 📸 Dashboard Previews
+##  Dashboard Previews
 
 ### 1. Live Spatial Mapping (Built-in Dataset)
 ![Live Mapping](images/earthquake_plotted.png)
@@ -40,7 +40,7 @@ Following a catastrophic earthquake, the sequence of aftershocks often poses a g
 
 ---
 
-## 🚀 Project Overview
+##  Project Overview
 
 The system addresses a fundamental operational limitation: The **Omori-Utsu Law**, the canonical model for aftershocks, is excellent at predicting the *long-term expected average decay* of aftershocks over days or weeks. However, it fails to capture short-term clustering and volatility—moments where a sequence temporarily flares up.
 
@@ -52,7 +52,7 @@ This dual-metric output allows emergency responders to make highly informed, tac
 
 ---
 
-## ⚙️ Methodological Flow
+##  Methodological Flow
 
 The pipeline is completely automated and "ingestion ready" for live data feeds.
 
@@ -79,7 +79,7 @@ graph TD
 
 ---
 
-## 📊 Complete Findings
+## Complete Findings
 
 Our analysis of the massive **2023 Turkey-Syria sequence (M7.8)** yielded profound operational insights:
 
@@ -89,7 +89,7 @@ Our analysis of the massive **2023 Turkey-Syria sequence (M7.8)** yielded profou
 
 ---
 
-## 💻 Installation & Usage
+##  Installation & Usage
 
 This project is built to be deployed seamlessly on **Streamlit Cloud**.
 
@@ -132,7 +132,7 @@ The current pipeline lays the groundwork for a globally scalable early-warning d
 
 ---
 
-## 📁 Directory Structure
+##  Directory Structure
 
 ```text
 ├── .git/                        # Git history tracking
